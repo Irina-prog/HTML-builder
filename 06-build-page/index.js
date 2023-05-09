@@ -34,7 +34,7 @@ async function mergeCss(sourceDirectory, destinationDirectory) {
   // читаем содержимое этих файлов - в резельтате в bufferList массив объектов buffer(cсодержимое в двоичной форме)
   const bufferList = await Promise.all(cssFileNames.map(cssFileName => fs.readFile(path.join(sourceDirectory, cssFileName))));
   // сначала склеиваем conccat  все буферы в один, записываем в файл 
-  await fs.writeFile(path.join(destinationDirectory, 'bundle.css'), Buffer.concat(bufferList));
+  await fs.writeFile(path.join(destinationDirectory, 'style.css'), Buffer.concat(bufferList));
 }
 
 async function prepareHtml(componentsDirectory, templateFile, destinationFile){
@@ -59,7 +59,7 @@ async function prepareHtml(componentsDirectory, templateFile, destinationFile){
 
 async function main(){
  await copyDir(path.join(__dirname, 'assets'), path.join(__dirname, 'project-dist', 'assets'));
- await mergeCss(path.join(__dirname, 'styles'), path.join(__dirname, 'project-dist', 'styles'));
+ await mergeCss(path.join(__dirname, 'styles'), path.join(__dirname, 'project-dist'));
  await prepareHtml(path.join(__dirname, 'components'), path.join(__dirname, 'template.html'), path.join(__dirname, 'project-dist', 'index.html'));
 }
 
